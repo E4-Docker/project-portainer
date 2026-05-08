@@ -1,0 +1,16 @@
+services:
+  portainer:
+    image: portainer/portainer-ce:lts
+    container_name: portainer
+    ports:
+      - "9000:9000" # HTTP
+      - "9443:9443" # HTTPS
+    volumes:
+      - type: npipe
+        source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+      - 'data:C:\data'
+    restart: always
+
+volumes:
+  data:
