@@ -9,7 +9,9 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - 'data:/data'
     networks:
-      - agent_network
+      agent_network:
+        aliases:  
+          - portainer_agent
     deploy:
       placement:
         constraints: 
@@ -24,7 +26,9 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     networks:
-      - agent_network
+      agent_network:
+        aliases:
+          - portainer_agent
     deploy:
       mode: global
       placement:
@@ -40,7 +44,9 @@ services:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/volume1/@docker/volumes:/var/lib/docker/volumes'
     networks:
-      - agent_network
+      agent_network:
+        aliases:
+          - portainer_agent
     deploy:
       mode: global
       placement:
@@ -60,7 +66,9 @@ services:
         source: C:\ProgramData\docker\volumes
         target: C:\ProgramData\docker\volumes
     networks:
-      - agent_network
+      agent_network:
+        aliases:
+          - portainer_agent
     deploy:
       mode: global
       endpoint_mode: dnsrr
