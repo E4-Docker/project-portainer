@@ -15,3 +15,14 @@
 ```bash
 curl -L https://raw.githubusercontent.com/E4-Docker/project-portainer/refs/heads/main/docker-stack.yml | docker stack deploy -c - portainer
 ```
+
+## ⚙️ Portainer 환경 설정
+
+배포 완료 후 **Portainer** 환경 설정이 필요합니다.
+
+1. 왼쪽 사이드 바 메뉴에서 **Administration** > **Environment-related** > **Environments** 선택 후 `Add environment` 버튼 클릭
+2. **Docker Swarm** 선택 후 `Start wizard` 버튼 클릭
+3. **Agent** 선택 후 다음 정보 입력
+    - **Name**: `agent` (자유롭게 입력)
+    - **Environment URL**: `tasks.portainer_agent:9001`
+4. `Connect` 버튼 클릭
