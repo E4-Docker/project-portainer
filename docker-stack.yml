@@ -63,6 +63,7 @@ services:
       - agent_network
     deploy:
       mode: global
+      endpoint_mode: dnsrr
       placement:
         constraints:
           - node.platform.os == windows
