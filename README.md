@@ -13,5 +13,5 @@
 매니저 노드에서 다음 명령어를 실행합니다.
 
 ```bash
-curl -L https://raw.githubusercontent.com/E4-Docker/project-portainer/refs/heads/main/docker-stack.yml? | docker stack deploy -c - portainer
+curl -L https://raw.githubusercontent.com/E4-Docker/project-portainer/refs/heads/main/docker-stack.yml | docker stack deploy -c - portainer
 ```
