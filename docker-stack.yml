@@ -11,7 +11,7 @@ services:
     networks:
       agent_network:
         aliases:  
-          - portainer_agent
+          - portainer-agent
     deploy:
       placement:
         constraints: 
@@ -21,14 +21,14 @@ services:
   agent:
     image: portainer/agent:latest
     environment:
-      - AGENT_CLUSTER_ADDR=tasks.portainer_agent
+      - AGENT_CLUSTER_ADDR=tasks.portainer-agent
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/var/lib/docker/volumes:/var/lib/docker/volumes'
     networks:
       agent_network:
         aliases:
-          - portainer_agent
+          - portainer-agent
     deploy:
       mode: global
       placement:
@@ -39,14 +39,14 @@ services:
   agent-synology:
     image: portainer/agent:latest
     environment:
-      - AGENT_CLUSTER_ADDR=tasks.portainer_agent
+      - AGENT_CLUSTER_ADDR=tasks.portainer-agent
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/volume1/@docker/volumes:/var/lib/docker/volumes'
     networks:
       agent_network:
         aliases:
-          - portainer_agent
+          - portainer-agent
     deploy:
       mode: global
       placement:
@@ -57,7 +57,7 @@ services:
   agent-windows:
     image: portainer/agent:latest
     environment:
-      - AGENT_CLUSTER_ADDR=tasks.portainer_agent
+      - AGENT_CLUSTER_ADDR=tasks.portainer-agent
     volumes:
       - type: npipe
         source: \\.\pipe\docker_engine
@@ -68,7 +68,7 @@ services:
     networks:
       agent_network:
         aliases:
-          - portainer_agent
+          - portainer-agent
     deploy:
       mode: global
       endpoint_mode: dnsrr
