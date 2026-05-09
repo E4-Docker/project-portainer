@@ -61,6 +61,7 @@ services:
         target: C:\ProgramData\docker\volumes
     networks:
       - agent_network
+      - nat
     deploy:
       mode: global
       placement:
@@ -74,3 +75,5 @@ networks:
   agent_network:
     driver: overlay
     attachable: true
+  nat:
+    external: true
