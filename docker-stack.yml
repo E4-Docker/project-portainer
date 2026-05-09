@@ -1,0 +1,57 @@
+services:
+  portainer-ce:
+    image: portainer/portainer-ce:latest
+    ports:
+      - '9000:9000' # HTTP
+      - '9443:9443' # HTTPS
+      - '8000:8000' # Agent
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - 'data:/data'
+    networks:
+      - agent_network
+    deploy:
+      placement:
+        constraints: 
+          - node.role == manager
+          - node.platform.os == linux
+
+  agent:
+    image: portainer/agent:latest
+    environment:
+      - AGENT_CLUSTER_ADDR=tasks.portainer_agent
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/var/lib/docker/volumes:/var/lib/docker/volumes'
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.labels.os != synology
+  
+  agent-synology:
+    image: portainer/agent:latest
+    environment:
+      - AGENT_CLUSTER_ADDR=tasks.portainer_agent
+    volumes:
+      - '/var/run/docker.sock:/var/run/docker.sock'
+      - '/volume1/@docker/volumes:/var/lib/docker/volumes'
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == linux
+          - node.labels.os == synology
+
+volumes:
+  data:
+
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true
