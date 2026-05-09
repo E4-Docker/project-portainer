@@ -29,7 +29,8 @@ services:
       - agent
     deploy:
       mode: global
-      constraints: 
+      placement:
+        constraints:
           - node.platform.os == linux
 
 volumes:
