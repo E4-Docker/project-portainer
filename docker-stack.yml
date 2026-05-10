@@ -51,7 +51,7 @@ services:
   agent-windows:
     image: portainer/agent:latest
     environment:
-      - AGENT_CLUSTER_ADDR=tasks.portainer_agent, localhost
+      - AGENT_CLUSTER_ADDR=tasks.portainer_agent,localhost
     volumes:
       - type: npipe
         source: '\\.\pipe\docker_engine'
