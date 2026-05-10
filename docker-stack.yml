@@ -51,7 +51,7 @@ services:
   agent-windows:
     image: portainer/agent:latest
     environment:
-      - AGENT_CLUSTER_ADDR=portainer.eu4ng.com
+      - AGENT_CLUSTER_ADDR=portainer_agent
     volumes:
       - type: npipe
         source: '\\.\pipe\docker_engine'
