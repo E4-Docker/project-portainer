@@ -48,6 +48,25 @@ services:
           - node.platform.os == linux
           - node.labels.os == synology
 
+  agent-windows:
+    image: portainer/agent:latest
+    environment:
+      - AGENT_CLUSTER_ADDR=localhost
+    volumes:
+      - type: npipe
+        source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+      - type: bind
+        source: C:\ProgramData\docker\volumes
+        target: C:\ProgramData\docker\volumes
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == windows
+
 volumes:
   data:
 
