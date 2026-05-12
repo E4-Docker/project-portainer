@@ -20,10 +20,6 @@ services:
     image: portainer/agent:latest
     environment:
       - AGENT_CLUSTER_ADDR=tasks.portainer_agent
-    ports:
-      - target: 9001
-        published: 9001
-        mode: host
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/var/lib/docker/volumes:/var/lib/docker/volumes'
@@ -40,10 +36,6 @@ services:
     image: portainer/agent:latest
     environment:
       - AGENT_CLUSTER_ADDR=tasks.portainer_agent
-    ports:
-      - target: 9001
-        published: 9001
-        mode: host
     volumes:
       - '/var/run/docker.sock:/var/run/docker.sock'
       - '/volume1/@docker/volumes:/var/lib/docker/volumes'
@@ -55,25 +47,6 @@ services:
         constraints:
           - node.platform.os == linux
           - node.labels.os == synology
-
-  agent-windows:
-    image: portainer/agent:latest
-    environment:
-      - AGENT_CLUSTER_ADDR=portainer.eu4ng.com
-    volumes:
-      - type: npipe
-        source: '\\.\pipe\docker_engine'
-        target: '\\.\pipe\docker_engine'
-      - type: bind
-        source: C:\ProgramData\docker\volumes
-        target: C:\ProgramData\docker\volumes
-    networks:
-      - agent_network
-    deploy:
-      mode: global
-      placement:
-        constraints:
-          - node.platform.os == windows
 
 volumes:
   data:
