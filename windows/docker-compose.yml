@@ -17,6 +17,8 @@ services:
     image: portainer/agent:lts
     container_name: agent
     restart: always
+    environment:
+      - AGENT_CLUSTER_ADDR=localhost
     ports:
       - 9001:9001
     volumes:
