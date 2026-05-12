@@ -1,5 +1,5 @@
 services:
-  portainer:
+  portainer-ce:
     image: portainer/portainer-ce:lts
     ports:
       # HTTP
@@ -10,13 +10,45 @@ services:
       - target: 9443
         published: 9443
         mode: host
+      # Agent
+      - target: 8000
+        published: 8000
+        mode: host
     volumes:
       - type: npipe
-        source: '\\.\pipe\docker_engine'
-        target: '\\.\pipe\docker_engine'
-      - 'data:C:\data'
+        source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+      - data:C:\data
     networks:
       - nat
+    deploy:
+      placement:
+        constraints:
+          - node.platform.os == windows
+          - node.role == manager
+
+  agent:
+    image: portainer/agent:lts
+    environment:
+      - AGENT_CLUSTER_ADDR=localhost
+    ports:
+      - target: 9001
+        published: 9001
+        mode: host
+    volumes:
+      - type: npipe
+        source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+      - type: bind
+        source: C:\ProgramData\docker\volumes
+        target: C:\ProgramData\docker\volumes
+    networks:
+      - nat
+    deploy:
+      mode: global
+      placement:
+        constraints:
+          - node.platform.os == windows
 
 volumes:
   data:
