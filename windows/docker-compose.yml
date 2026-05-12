@@ -1,16 +1,31 @@
 services:
-  portainer:
+  portainer-ce:
     image: portainer/portainer-ce:lts
     container_name: portainer
+    restart: always
     ports:
-      - "9000:9000" # HTTP
-      - "9443:9443" # HTTPS
+      - 9000:9000 # HTTP
+      - 9443:9443 # HTTPS
+      - 8000:8000 # Agent
     volumes:
       - type: npipe
-        source: '\\.\pipe\docker_engine'
-        target: '\\.\pipe\docker_engine'
-      - 'data:C:\data'
+        source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+      - data:C:\data
+
+  agent:
+    image: portainer/agent:lts
+    container_name: agent
     restart: always
+    ports:
+      - 9001:9001
+    volumes:
+      - type: npipe
+        source: \\.\pipe\docker_engine
+        target: \\.\pipe\docker_engine
+      - type: bind
+        source: C:\ProgramData\docker\volumes
+        target: C:\ProgramData\docker\volumes
 
 volumes:
   data:
